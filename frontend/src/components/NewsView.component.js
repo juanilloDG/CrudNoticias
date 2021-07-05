@@ -20,7 +20,13 @@ export default class NewsView extends React.Component {
     render() {
         return (
             <div className="container mt-5">
-                <h1 className="d-flex justify-content-start">News</h1>
+                <div className="d-flex justify-content-between align-items-center">
+                    <h1>News</h1>
+                    <div>
+                        <button className="btn m-3 btn-info">Archived</button>
+                        <button className="btn btn-success">Create New</button>
+                    </div>
+                </div>
                 {this.state.news.map(news =>
                     <div className="card mt-4">
                         <div className="card-body">
