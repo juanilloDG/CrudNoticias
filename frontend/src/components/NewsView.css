@@ -1,0 +1,9 @@
+.text-start {
+    text-align: start;
+}
+
+.card-button {
+    margin-top: .5rem;
+    display: flex;
+    justify-content: flex-end;
+}
