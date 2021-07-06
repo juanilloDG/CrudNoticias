@@ -1,6 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
+
+import CreateNew from './CreateNew.component';
+
 import "./NewsView.css";
 
 export default class NewsView extends React.Component {
@@ -17,35 +20,52 @@ export default class NewsView extends React.Component {
             })
     }
 
+    createModalRef = ({ handleShow }) => {
+        this.showModal = handleShow;
+    }
+
+    openModal = () => {
+        this.showModal();
+    }
+
+    orderNews() {
+        this.setState({
+            news: this.state.news.sort((a, b) => a.date - b.date)
+        })
+    }
+
     render() {
         return (
             <div className="container mt-5">
-                <div className="d-flex justify-content-between align-items-center">
+                <CreateNew ref={this.createModalRef}></CreateNew>
+                <header className="d-flex justify-content-between align-items-center border-bottom">
                     <h1>News</h1>
                     <div>
                         <button className="btn m-3 btn-info">Archived</button>
-                        <button className="btn btn-success">Create New</button>
+                        <button className="btn btn-success" onClick={this.openModal}>Create New</button>
                     </div>
-                </div>
-                {this.state.news.map(news =>
-                    <div className="card mt-4">
-                        <div className="card-body">
-                            <h3 className="card-title border-bottom text-start">{news.title}</h3>
-                            <h6 className="card-subtitle mb-2 text-muted text-start">Description: {news.description}</h6>
-                            <h5 className="text-start">Content</h5>
-                            <p className="card-text text-start">{news.content}</p>
-                        </div>
-                        <div className="card-footer">
-                            <div className="d-flex justify-content-between border-bottom">
-                                <span>Author: {news.author}</span>
-                                <span>{moment(news.date).format("L")}</span>
+                </header>
+                <main>
+                    {this.state.news.map(news =>
+                        <div key={news._id} className="card mt-4">
+                            <div className="card-body">
+                                <h3 className="card-title border-bottom text-start">{news.title}</h3>
+                                <h6 className="card-subtitle mb-2 text-muted text-start">Description: {news.description}</h6>
+                                <h5 className="text-start">Content</h5>
+                                <p className="card-text text-start">{news.content}</p>
                             </div>
-                            <div className="card-button">
-                                <button className="btn btn-danger">Archive</button>
+                            <div className="card-footer">
+                                <div className="d-flex justify-content-between border-bottom">
+                                    <span>Author: {news.author}</span>
+                                    <span>{moment(news.date).format("L")}</span>
+                                </div>
+                                <div className="card-button">
+                                    <button className="btn btn-danger">Archive</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                )}
+                    )}
+                </main>
             </div>
         )
     }

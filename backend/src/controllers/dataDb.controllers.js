@@ -26,11 +26,11 @@ exports.addNew = (req, res) => {
     console.log(req.body);
 
     var newData = new News({
-        title: req.body.title,
-        description: req.body.description,
-        date: req.body.date,
-        content: req.body.content,
-        author: req.body.author
+        title: req.body.news.title,
+        description: req.body.news.description,
+        date: req.body.news.date,
+        content: req.body.news.content,
+        author: req.body.news.author
     });
 
     newData.save((err, newData) => {
