@@ -1,1 +1,1 @@
-# pruebaTecnicaNoticias
+# CrudNoticias
