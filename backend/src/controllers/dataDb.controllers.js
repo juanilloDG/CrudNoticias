@@ -71,6 +71,7 @@ exports.updateNew = (req, res) => {
 
 //DELETE - Delete a new
 exports.deleteNew = (req, res) => {
+    console.log(req.body)
     News.findById(req.params.id, (err, newData) => {
         newData.remove((err) => {
             if (err) return res.status(500).send(err.message);

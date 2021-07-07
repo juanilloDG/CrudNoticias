@@ -18,6 +18,14 @@ export default class ArchivedNews extends Component {
             })
     }
 
+    deleteNew = (id) => {
+        axios.delete(`http://localhost:4000/api/archived/${id}`)
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+            })
+    }
+
     render() {
         return (
             <div className="container mt-5">
@@ -39,7 +47,7 @@ export default class ArchivedNews extends Component {
                                     <span>{moment(news.date).format("L")}</span>
                                 </div>
                                 <div className="card-button">
-                                    <button className="btn btn-danger">Delete</button>
+                                    <button className="btn btn-danger" onClick={() => this.deleteNew(news._id)}>Delete</button>
                                 </div>
                             </div>
                         </div>
