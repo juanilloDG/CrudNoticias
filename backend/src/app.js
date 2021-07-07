@@ -3,6 +3,7 @@ var express = require("express"),
     methodOverride = require("method-override"),
     mongoose = require('mongoose');
 
+mongoose.set('useFindAndModify', false);
 mongoose.connect("mongodb://localhost/news", { useNewUrlParser: true, useUnifiedTopology: true }, (err, res) => {
     if (err) console.log(`Error: connecting to Database ${err}`)
 })
@@ -27,14 +28,15 @@ news.route('/news')
     .get(dataDB.getAllNews)
     .post(dataDB.addNew);
 
+news.route('/news/:id')
+    .put(dataDB.updateNew)
+
 news.route('/archived')
     .get(dataDB.getAllArchivedNews)
 
 news.route('/archived/:id')
     .delete(dataDB.deleteNew);
 
-news.route('/news/:id')
-    .put(dataDB.updateNew)
 
 
 app.use("/api", news);
