@@ -1,8 +1,8 @@
 const News = require("../models/news");
 
-//GET - Return all News
+//GET - Return all news without archiveDate
 exports.getAllNews = (req, res) => {
-    News.find((err, newData) => {
+    News.find({ archiveDate: { $eq: null } }, (err, newData) => {
         if (err) res.send(500, err.message);
 
         console.log("GET /news");
@@ -10,12 +10,12 @@ exports.getAllNews = (req, res) => {
     });
 };
 
-//GET - Return a new
-exports.findNew = (req, res) => {
-    News.findById(req.params.id, (err, newData) => {
-        if (err) return res.send(500, err.message);
+//GET - Return all archived news
+exports.getAllArchivedNews = (req, res) => {
+    News.find({ archiveDate: { $ne: null } }, (err, newData) => {
+        if (err) res.send(500, err.message);
 
-        console.log('GET /new/' + req.params.id);
+        console.log("GET /news");
         res.status(200).jsonp(newData);
     });
 };
