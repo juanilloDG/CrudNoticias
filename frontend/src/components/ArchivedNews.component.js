@@ -32,7 +32,7 @@ export default class ArchivedNews extends Component {
                 <header className="d-flex justify-content-between align-items-center border-bottom">
                     <h1>Archived news</h1>
                 </header>
-                <main>
+                <main className="mb-4">
                     {this.state.news.map(news =>
                         <div key={news._id} className="card mt-4">
                             <div className="card-body">

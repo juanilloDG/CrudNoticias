@@ -39,39 +39,21 @@ exports.addNew = (req, res) => {
     });
 };
 
-//PUT - Update a new
-exports.updateNew = (req, res) => {
-    console.log("miau")
-    News.findById(req.params.id, (err, newData) => {
-        console.log(newData)
-        newData.title = req.body.title;
-        newData.description = req.body.description;
-        newData.date = req.body.date;
-        newData.content = req.body.content;
-        newData.author = req.body.author;
-
-        newData.save((err) => {
-            if (err) return res.status(500).send(err.message);
-            res.status(200).jsonp(newData);
-        });
-    });
-};
-
-//PUT - Add archive date to a new
-exports.updateNew = (req, res) => {
-    News.findById(req.params.id, (err, newData) => {
-        newData.archiveDate = req.body.archiveDate;
-
-        newData.save((err) => {
-            if (err) return res.status(500).send(err.message);
-            res.status(200).jsonp(newData);
-        });
+//PUT - Add archivedate to a new
+exports.updateNew = (req) => {
+    let newData = req.body;
+    News.findByIdAndUpdate(req.params.id, newData, (err) => {
+        if (err) {
+            return res.status(500).send(err.message);
+        } else {
+            console.log("News Updated")
+        }
+        
     });
 };
 
 //DELETE - Delete a new
 exports.deleteNew = (req, res) => {
-    console.log(req.body)
     News.findById(req.params.id, (err, newData) => {
         newData.remove((err) => {
             if (err) return res.status(500).send(err.message);
