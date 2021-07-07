@@ -33,10 +33,15 @@ news.route('/news')
     .get(dataDB.getAllNews)
     .post(dataDB.addNew);
 
-news.route('/news/:id')
-    .get(dataDB.findNew)
-    .put(dataDB.updateNew)
+news.route('/archived')
+    .get(dataDB.getAllArchivedNews)
+
+news.route('/archived/:id')
     .delete(dataDB.deleteNew);
+
+news.route('/news/:id')
+    .put(dataDB.updateNew)
+
 
 app.use("/api", news);
 
