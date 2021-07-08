@@ -9,42 +9,41 @@ import "./NewsView.css";
 export default class NewsView extends React.Component {
 
     state = {
-        news: []
+        news: [],
+        displayModal: false
     }
 
+    openModal = this.openModal.bind(this);
+    closeModal = this.closeModal.bind(this);
+
     componentDidMount() {
-        axios.get("http://localhost:4000/api/news")
+        fetch(axios.get("http://localhost:4000/api/news")
             .then(res => {
                 let news = res.data;
                 this.setState({ news })
-            })
+            }))
     }
 
     archiveNew = (id) => {
-        axios.put(`http://localhost:4000/api/news/${id}`, { archiveDate: new Date() } ).then(res => {
+        axios.put(`http://localhost:4000/api/news/${id}`, { archiveDate: new Date() }).then(res => {
             console.log(res);
             console.log(res.data);
         })
     }
 
-    createModalRef = ({ handleShow }) => {
-        this.showModal = handleShow;
+    openModal() {
+        this.setState({ displayModal: true })
     }
 
-    openModal = () => {
-        this.showModal();
-    }
-
-    orderNews() {
-        this.setState({
-            news: this.state.news.sort((a, b) => a.date - b.date)
-        })
+    closeModal() {
+        this.setState({ displayModal: false })
     }
 
     render() {
         return (
             <div className="container mt-5">
-                <CreateNew ref={this.createModalRef}></CreateNew>
+                <CreateNew show={this.state.displayModal}
+                    onHide={this.closeModal} />
                 <header className="d-flex justify-content-between align-items-center border-bottom">
                     <h1>News</h1>
                     <div>
