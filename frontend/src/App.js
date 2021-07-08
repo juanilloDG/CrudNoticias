@@ -4,6 +4,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import NewsView from './components/NewsView.component';
+import ArchivedNews from "./components/ArchivedNews.component";
 
 function App() {
   return (
@@ -12,12 +13,14 @@ function App() {
         <ul>
           <li>
             <Link className="btn" to="/news">News</Link>
+            <Link className="btn" to="/archived">Archived</Link>
           </li>
         </ul>
       </nav>
       <Redirect to="/news" />
       <Switch>
         <Route path="/news" component={NewsView} />
+        <Route path="/archived" component={ArchivedNews} />
       </Switch>
     </Router>
   );
