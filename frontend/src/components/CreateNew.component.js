@@ -7,23 +7,10 @@ import Form from 'react-bootstrap/Form'
 export default class CreateNew extends Component {
 
     state = {
-        show: false,
         title: String,
         description: String,
         content: String,
         author: String
-    }
-
-    handleShow = this.handleShow.bind(this);
-    handleClose = this.handleClose.bind(this);
-
-    handleShow() {
-        console.log(this.state)
-        this.setState({ show: true })
-    }
-
-    handleClose() {
-        this.setState({ show: false })
     }
 
     getTitleData = event => {
@@ -48,7 +35,6 @@ export default class CreateNew extends Component {
     }
 
     handleSubmit = event => {
-        event.preventDefault();
 
         let news = {
             title: this.state.title,
@@ -58,20 +44,17 @@ export default class CreateNew extends Component {
             author: this.state.author
         }
 
-        axios.post("http://localhost:4000/api/news", {news}).then(res => {
+        axios.post("http://localhost:4000/api/news", { news }).then(res => {
             console.log(res);
             console.log(res.data);
         })
-
-        console.log(news);
     }
 
 
     render() {
         return (
             <Modal
-                show={this.state.show}
-                onHide={this.handleClose}
+                {...this.props}
                 backdrop="static"
                 keyboard={false}
             >
@@ -98,7 +81,7 @@ export default class CreateNew extends Component {
                         </Form.Group>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={this.handleClose}>
+                        <Button variant="secondary" onClick={this.props.onHide}>
                             Close
                         </Button>
                         <Button type="submit" variant="primary">Save</Button>
