@@ -17,11 +17,14 @@ export default class NewsView extends React.Component {
     closeModal = this.closeModal.bind(this);
 
     componentDidMount() {
-        fetch(axios.get("http://localhost:4000/api/news")
-            .then(res => {
-                let news = res.data;
-                this.setState({ news })
-            }))
+        this.getNews();
+    }
+
+    getNews() {
+        axios.get("http://localhost:4000/api/news").then(res => {
+            let news = res.data;
+            this.setState({ news })
+        })
     }
 
     archiveNew = (id) => {
@@ -29,6 +32,7 @@ export default class NewsView extends React.Component {
             console.log(res);
             console.log(res.data);
         })
+        this.getNews()
     }
 
     openModal() {

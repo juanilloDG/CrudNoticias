@@ -15,7 +15,7 @@ exports.getAllArchivedNews = (req, res) => {
     News.find({ archiveDate: { $ne: null } }, (err, newData) => {
         if (err) res.send(500, err.message);
 
-        console.log("GET /news");
+        console.log("GET /archived");
         res.status(200).jsonp(newData);
     });
 };

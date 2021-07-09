@@ -11,19 +11,22 @@ export default class ArchivedNews extends Component {
     }
 
     componentDidMount() {
-        axios.get("http://localhost:4000/api/archived")
-            .then(res => {
-                let news = res.data;
-                this.setState({ news })
-            })
+        this.getArchivedNews()
+    }
+
+    getArchivedNews() {
+        axios.get("http://localhost:4000/api/archived").then(res => {
+            let news = res.data;
+            this.setState({ news })
+        })
     }
 
     deleteNew = (id) => {
-        axios.delete(`http://localhost:4000/api/archived/${id}`)
-            .then(res => {
-                console.log(res);
-                console.log(res.data);
-            })
+        axios.delete(`http://localhost:4000/api/archived/${id}`).then(res => {
+            console.log(res);
+            console.log(res.data);
+            this.getArchivedNews()
+        })
     }
 
     render() {
