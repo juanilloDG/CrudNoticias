@@ -84,7 +84,7 @@ export default class CreateNew extends Component {
                         <Button variant="secondary" onClick={this.props.onHide}>
                             Close
                         </Button>
-                        <Button type="submit" variant="primary">Save</Button>
+                        <Button type="submit" variant="success">Save</Button>
                     </Modal.Footer>
                 </Form>
             </Modal>
